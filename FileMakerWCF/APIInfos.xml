@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Document Version="1.05" xmlns="C:\Users\alexa\Desktop\APIConnect.efm">
+  <AUTH login="Bob" apiKey="d96b9a34e8b46819f9b0baf6f3dff636" apiAdress="http://localhost:3000/api/"/>
+</Document>
