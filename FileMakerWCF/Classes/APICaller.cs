@@ -22,15 +22,6 @@ namespace FMWClasses
 
         static readonly string ROUTE = "insertMesures";
 
-        
-        public static async Task<List<Import>> CallNewImportsAsync()
-        {
-            string content = await DoGetAsync(ROUTE+ "?q={\"isNew\":{\"$in\":[-1,1]}}");
-            List<Import> ListImports = new List<Import>();
-            ListImports = DeserializeToList<Import>(content);
-            return ListImports;
-        }
-
         /// <summary>
         /// On appelle l'API avec le paramètre ServiceReset
         /// Cela a pour effet de trigger tous les webhooks déclarées dans Ellisetting

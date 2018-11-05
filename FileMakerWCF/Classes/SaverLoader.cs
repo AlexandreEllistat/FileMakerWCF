@@ -72,84 +72,6 @@ namespace FMWClasses
             }
         }
 
-        public static void Readfile()
-        {
-            list_dlc = new List<DownloadListenerClass>();
-            list_sfm = new List<SurfaceFileMakerClass>();
-            list_api = new List<APIClass>();
-            try
-            {
-                using (XmlReader reader = XmlReader.Create("GetTempFile()"))
-                {
-                    // Parse the file and display each of the nodes.
-                    while (reader.Read())
-                    {
-                        if (reader.NodeType == XmlNodeType.Element)
-                        {
-                            switch (reader.Name)
-                            {
-                                case "DLC":
-                                    DownloadListenerClass dlc = new DownloadListenerClass
-                                    {
-                                        Repertoire_depart = reader.GetAttribute("FolderListened"),
-                                        repertoire_destination = reader.GetAttribute("FolderDestination"),
-                                        nom_fichier = reader.GetAttribute("filename"),
-                                        nom_extension = reader.GetAttribute("fileExtension"),
-                                        text = reader.ReadInnerXml()
-                                    };
-                                    list_dlc.Add(dlc);
-                                    break;
-                                case "SFM":
-                                    SurfaceFileMakerClass sfm = new SurfaceFileMakerClass
-                                    {
-                                        Repertoire_depart = reader.GetAttribute("FolderListened"),
-                                        repertoire_destination = reader.GetAttribute("FolderDestination"),
-                                        Nom_fichier = reader.GetAttribute("filename"),
-                                        Nom_extension = reader.GetAttribute("fileExtension"),
-                                        nom_supprimer = reader.GetAttribute("nomSupprimer")
-                                    };
-                                    list_sfm.Add(sfm);
-                                    break;
-                                case "SFMFILE":
-                                    string original_file = reader.GetAttribute("original_file");
-                                    string name = reader.GetAttribute("name");
-                                    string name_init = reader.GetAttribute("nameInit");
-                                    string extension = reader.GetAttribute("extension");
-                                    string nomsupprimer = reader.GetAttribute("nomsupprimer");
-                                    list_sfm[list_sfm.Count - 1].List.Add(new SurfaceFileString(original_file, name, name_init, extension, nomsupprimer));
-                                    break;
-                                case "API":
-                                    string folderListened = reader.GetAttribute("FolderListened");
-                                    string pieceId = reader.GetAttribute("PieceId");
-                                    string importId = reader.GetAttribute("ImportId");
-                                    string pathOfFile = reader.GetAttribute("PathOfFile");
-                                    string partThatChange = reader.GetAttribute("PartThatChange");
-                                    //list_api.Add(new APIClass(new Piece(pieceId, ""), new Import(importId, "", pieceId), pathOfFile, partThatChange));
-                                    break;
-                                case "AUTH":
-                                    login = reader.GetAttribute("login");
-                                    apiKey = Encrypt.DecryptString(reader.GetAttribute("apiKey"));
-                                    apiAdress = reader.GetAttribute("apiAdress");
-                                    break;
-                            }
-                        }
-                    }
-                }
-            }
-            catch(Exception)
-            {
-                list_dlc = new List<DownloadListenerClass>
-                {
-                    new DownloadListenerClass()
-                };
-                list_sfm = new List<SurfaceFileMakerClass>
-                {
-                    new SurfaceFileMakerClass()
-                };
-                list_api = new List<APIClass>();
-            }
-        }
-        
 
         /// <summary>
         /// Récupère les infos de connection de l'API
@@ -159,7 +81,8 @@ namespace FMWClasses
         {
             return AppDomain.CurrentDomain.BaseDirectory + "\\APIInfos.xml";
         }
-
+        
+        /*
         public static void WritefileRep()
         {
             string version = FileVersionInfo.GetVersionInfo(System.Reflection.Assembly.GetExecutingAssembly().Location).FileVersion;
@@ -222,6 +145,7 @@ namespace FMWClasses
                 writer.WriteEndDocument();
             }
         }
+        */
 
         public static void WriteLog(string log)
         {

@@ -79,7 +79,6 @@
     <Compile Include="Classes\APICaller.cs" />
     <Compile Include="Classes\APIClass.cs" />
     <Compile Include="Classes\DownloadListenerClass.cs" />
-    <Compile Include="Classes\Encrypt.cs" />
     <Compile Include="Classes\SaverLoader.cs" />
     <Compile Include="Classes\SurfaceFileMakerClass.cs" />
     <Compile Include="Classes\SurfaceFileString.cs" />
