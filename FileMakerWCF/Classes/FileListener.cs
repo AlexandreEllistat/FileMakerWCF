@@ -6,7 +6,7 @@ using System.Text.RegularExpressions;
 
 namespace FMWClasses
 {
-    public class APIClass
+    public class FileListener
     {
         public Import import;
         FileSystemWatcher watcher = new FileSystemWatcher();
@@ -14,12 +14,12 @@ namespace FMWClasses
         public string filter;
 
         //ctor
-        public APIClass()
+        public FileListener()
         {
             lastFile = DateTime.Now;
         }
 
-        public APIClass(Import i)
+        public FileListener(Import i)
         {
             lastFile = DateTime.Now;
             import = i;
@@ -70,7 +70,7 @@ namespace FMWClasses
             }
         }
 
-        // Create a new FileSystemWatcher and set its properties.
+
         private void OnChanged(object source, FileSystemEventArgs e)
         {
             Regex rgx = new Regex(filter, RegexOptions.IgnoreCase);
@@ -83,13 +83,11 @@ namespace FMWClasses
             int milliSeconds = (int)(DateTime.Now.Subtract(lastFile)).TotalMilliseconds;
             if (milliSeconds < 1000)
                 return;
-            try{
-                //read all bytes???
-                
+            try{                
                 string lines = File.ReadAllText(e.FullPath);
                 
                 //Construction du corps du post ->
-                PostData postData = new PostData(import.pieceId, import._id, lines);
+                PostData postData = new PostData(import.pieceId, import.machineId, import._id, lines);
                 Dictionary<string,string> postDataDict = BuildData(postData);
 
                 //API calls here ->
@@ -106,6 +104,7 @@ namespace FMWClasses
             Dictionary<string, string> Done = new Dictionary<string, string>
             {
                 { "PieceId", postData.PieceId },
+                { "MachineId", postData.MachineId },
                 { "ImportId", postData.ImportId },
                 { "FileContent", postData.FileContent }
             };

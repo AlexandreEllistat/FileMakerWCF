@@ -72,22 +72,19 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Service1.svc" />
+    <Content Include="Service\Service1.svc" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\APICaller.cs" />
-    <Compile Include="Classes\APIClass.cs" />
-    <Compile Include="Classes\DownloadListenerClass.cs" />
+    <Compile Include="Classes\FileListener.cs" />
     <Compile Include="Classes\SaverLoader.cs" />
-    <Compile Include="Classes\SurfaceFileMakerClass.cs" />
-    <Compile Include="Classes\SurfaceFileString.cs" />
     <Compile Include="Data\Import.cs" />
     <Compile Include="Data\PostData.cs" />
-    <Compile Include="Service1.svc.cs">
+    <Compile Include="Service\Service1.svc.cs">
       <DependentUpon>Service1.svc</DependentUpon>
     </Compile>
-    <Compile Include="IService1.cs" />
+    <Compile Include="Service\IService1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

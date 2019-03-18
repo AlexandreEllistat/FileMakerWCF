@@ -15,11 +15,18 @@ namespace FileMakerWCF
         string GetData(string s);
 
         [OperationContract]
-        [WebInvoke(RequestFormat = WebMessageFormat.Json, 
+        [WebInvoke(RequestFormat = WebMessageFormat.Json,
             UriTemplate = "PostImports",
             ResponseFormat = WebMessageFormat.Json,
             BodyStyle = WebMessageBodyStyle.Bare)]
         List<Import> PostImports(List<Import> importList);
+
+        [OperationContract]
+        [WebInvoke(RequestFormat = WebMessageFormat.Json,
+        UriTemplate = "TestPath",
+        ResponseFormat = WebMessageFormat.Json,
+        BodyStyle = WebMessageBodyStyle.Bare)]
+        string TestPath(Import import);
 
         [OperationContract]
         [WebInvoke(

@@ -13,11 +13,16 @@ namespace FMWClasses
 
         public static void SetHeaders()
         {
-            SaverLoader.ReadAPIInfos();
+
+            //SaverLoader.WriteLog("L1");
+            //SaverLoader.ReadAPIInfos();
             client.DefaultRequestHeaders.Clear();
             client.DefaultRequestHeaders.Add("username", SaverLoader.login);
             client.DefaultRequestHeaders.Add("apikey", SaverLoader.apiKey);
             client.Timeout.Add(new TimeSpan(0, 0, 5));
+
+            //SaverLoader.WriteLog("L2");
+            //SaverLoader.WriteLog("Loading : " + SaverLoader.apiAddress + " \n " + SaverLoader.login + " \n " + SaverLoader.apiKey);
         }
 
         static readonly string ROUTE = "insertMesures";
@@ -39,12 +44,12 @@ namespace FMWClasses
         /// </summary>
         public static async Task<string> DoGetAsync(string CollectionName)
         {
-            if (SaverLoader.apiAdress == "" || SaverLoader.apiKey == "" || SaverLoader.login == "")
+            if (SaverLoader.apiAddress == "" || SaverLoader.apiKey == "" || SaverLoader.login == "")
                 SaverLoader.ReadAPIInfos();
             SetHeaders();
             try
             {
-                string responseString = await client.GetStringAsync(SaverLoader.apiAdress + CollectionName);
+                string responseString = await client.GetStringAsync(SaverLoader.apiAddress + CollectionName);
                 return responseString;
             }
             catch (Exception e)
@@ -64,12 +69,12 @@ namespace FMWClasses
             {
                 SetHeaders();
                 var content = new FormUrlEncodedContent(postData);
-                var response = await client.PostAsync(SaverLoader.apiAdress + ROUTE, content);
+                var response = await client.PostAsync(SaverLoader.apiAddress + ROUTE, content);
                 var responseString = await response.Content.ReadAsStringAsync();
             }
             catch (Exception exc)
             {
-                SaverLoader.WriteLog("Erreur dans le Post : " + exc.ToString());
+                SaverLoader.WriteLog("Erreur dans le Post : " + exc.ToString() +" \n "+ SaverLoader.apiAddress + "\n" + ROUTE );
             }
         }
 

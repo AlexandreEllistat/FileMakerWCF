@@ -9,18 +9,20 @@ namespace FMWData
         public string pieceId;
         public string path;
         public int isNew;
+        public string machineId;
 
         public Import()
         {
 
         }
 
-        public Import(string _id,  string pieceId, string path,int isNew)
+        public Import(string _id,  string pieceId, string path,int isNew, string machineId)
         {
             this._id = _id;
             this.pieceId = pieceId;
             this.path = path;
             this.isNew = isNew;
+            this.machineId = machineId;
         }
 
 
@@ -30,7 +32,7 @@ namespace FMWData
         /// <returns></returns>
         internal bool CheckAllData()
         {
-            bool a = isNew > -2 && isNew < 2 && path != null && _id != null && pieceId != null;
+            bool a = isNew > -2 && isNew < 2 && path != null && _id != null && pieceId != null && machineId != null;
             return a;
         }
 
